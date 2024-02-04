@@ -4,7 +4,7 @@ subtitle: "My subtitle if needed"
 author: 
   - First author
   - Another author
-thanks: "Code and data are available at: <https://github.com/SavvyUni-MT/project>."
+thanks: "Code and data are available at: <https://github.com/SavvyUni-MT/Tut-5>."
 date: today
 date-format: long
 format: pdf
