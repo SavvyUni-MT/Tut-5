@@ -1,0 +1,91 @@
+---
+title: "My title"
+subtitle: "My subtitle if needed"
+author: 
+  - First author
+  - Another author
+thanks: "Code and data are available at: <https://github.com/SavvyUni-MT/project>."
+date: today
+date-format: long
+format: pdf
+number-sections: true
+bibliography: references.bib
+---
+
+```{r}
+#| include: false
+#| warning: false
+#| message: false
+install.packages("here")
+library(tidyverse)
+library(here)
+library(knitr)
+```
+
+
+# Introduction
+
+You can and should cross-reference sections and sub-sections. 
+
+The remainder of this paper is structured as follows. @sec-data....
+
+R [@citeR]
+
+
+Data is downloaded from <https://en.wikipedia.org/wiki/List_of_prime_ministers_of_Australia>
+
+# Data {#sec-data}
+Based on @tbl-prime
+```{r}
+#| label: tbl-prime
+#| tbl-cap: How long each prime minister of Australia lived
+#| echo: false
+#| warning: false
+#| message: false
+
+cleaned_data <- read_csv(here::here("outputs/data/cleaned_data.csv"))
+cleaned_data |>
+  kable(
+    col.names = c("Prime Minister", "Birth year", "Death year", "Age at death")
+    )
+```
+
+According to @fig-prime,  
+
+```{r}
+#| label: fig-prime
+#| fig-cap: How long each prime minister of Australia lived
+#| echo: false
+#| warning: false
+#| message: false
+
+cleaned_data |>
+  mutate(
+    still_alive = if_else(is.na(died), "Yes", "No"),
+    died = if_else(is.na(died), as.integer(2023), died)
+  ) |>
+  mutate(name = as_factor(name)) |>
+  ggplot(
+    aes(x = born, xend = died, y = name, yend = name, color = still_alive)
+    ) +
+  geom_segment() +
+  labs(
+    x = "Year of birth", y = "Prime minister", color = "PM is currently alive"
+    ) +
+  theme_minimal() +
+  scale_color_brewer(palette = "Set1") +
+  theme(legend.position = "bottom")
+```
+
+Talk way more about it. 
+
+
+
+
+
+\newpage
+
+
+# References
+
+
